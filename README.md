@@ -7,11 +7,19 @@
 - GNUstep Make
 
 ## Installation
-1. Ensure GNUstep Base and GNUstep Make are installed on your system.
-2. Clone the `tools-xctest` repository from GitHub.
-3. Navigate to the cloned directory.
-4. Run `make` to build the project.
-5. Run `make install` to install `tools-xctest` on your system.
+
+### Dependencies
+- GNUstep Base
+- GNUstep Make
+
+### Using Meson
+1. Run `meson setup build`
+2. Build XCTest with `ninja -C build`
+3. Install XCTest with `ninja -C build install`
+
+### Using GNUstep Make
+1. Run `make` to build the project.
+2. Run `make install` to install `tools-xctest` on your system.
 
 ## Usage
 To use `tools-xctest`, include the header files in your test classes and link against the `tools-xctest` library. The usage is similar to Apple's XCTest:
