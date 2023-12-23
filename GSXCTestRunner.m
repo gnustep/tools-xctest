@@ -187,11 +187,11 @@ NSArray *ClassGetSubclasses(Class parentClass)
             }
             else if (methodFailureCount > 0) {
                 testCaseFailureCount++;
-                NSLog(@"XCTest:   %@: %d/%d tests FAILED", className, methodFailureCount, methodFailureCount + methodSuccessCount);
+                NSLog(@"XCTest:   %@: %lu/%lu tests FAILED", className, methodFailureCount, methodFailureCount + methodSuccessCount);
             } else {
                 testCaseSuccessCount++;
                 if (methodSuccessCount > 0) {
-                    NSLog(@"XCTest:   %@: %d tests PASSED", className, methodSuccessCount);
+                    NSLog(@"XCTest:   %@: %lu tests PASSED", className, methodSuccessCount);
                 }
             }
         } // @autoreleasepool
@@ -201,9 +201,9 @@ NSArray *ClassGetSubclasses(Class parentClass)
         NSLog(@"XCTest: No tests found.");
     }
     else if (testCaseFailureCount > 0) {
-        NSLog(@"XCTest: %d/%d test cases FAILED", testCaseFailureCount, testCaseFailureCount + testCaseSuccessCount);
+        NSLog(@"XCTest: %lu/%lu test cases FAILED", testCaseFailureCount, testCaseFailureCount + testCaseSuccessCount);
     } else {
-        NSLog(@"XCTest: %d tests PASSED", testCaseSuccessCount);
+        NSLog(@"XCTest: %lu tests PASSED", testCaseSuccessCount);
     }
     
     [runLock unlock];
