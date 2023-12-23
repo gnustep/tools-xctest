@@ -11,8 +11,7 @@ PACKAGE_NAME = xctest
 TOOL_NAME = xctest
 SUBPROJECTS = XCTest
 
-xctest_HEADER_FILES = GSXCTestRunner.h
-xctest_OBJC_FILES = main.m GSXCTestRunner.m
+xctest_OBJC_FILES = main.m
 ADDITIONAL_TOOL_LIBS = -lXCTest
 ADDITIONAL_LIB_DIRS = -L./XCTest/obj
 

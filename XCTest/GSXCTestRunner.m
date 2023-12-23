@@ -26,7 +26,7 @@
 */
 
 
-#import <GSXCTestRunner.h>
+#import <XCTest/GSXCTestRunner.h>
 #import <XCTest/XCTestCase.h>
 
 #import <objc/runtime.h>
