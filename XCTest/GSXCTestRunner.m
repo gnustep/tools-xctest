@@ -158,7 +158,7 @@ NSArray *ClassGetSubclasses(Class parentClass)
                                 XCTestCase *testCase = [[[testCaseClass alloc] init] autorelease];
                                 assertionFailureCount = 0;
                                 [testCase setUp];
-                                testFunction(testCase, selector);
+                                ((void (*)(id, SEL))testFunction)(testCase, selector);
                                 [testCase tearDown];
                                 if (assertionFailureCount > 0) {
                                     testSucceeded = NO;
