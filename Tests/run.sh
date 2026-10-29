@@ -7,6 +7,10 @@ export LD_LIBRARY_PATH="$PWD/XCTest/obj${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 Tests/obj/regression
 obj/xctest --help
 obj/xctest -XCTest CLIExample.testPass Tests/Fixture.bundle
+obj/xctest -only-testing:Fixture/CLIExample/testPass Tests/Fixture.bundle
+obj/xctest Tests/Fixture.bundle -only-testing:Fixture/CLIExample -skip-testing:Fixture/CLIExample/testFail
+obj/xctest -skip-testing:Fixture/CLIExample/testFail Tests/Fixture.bundle
+obj/xctest -skip-testing:Other/CLIExample -XCTest CLIExample.testPass Tests/Fixture.bundle
 expect_failure() {
     if "$@"; then
         echo "Unexpected success: $*" >&2
@@ -22,4 +26,13 @@ expect_failure obj/xctest -XCTest CLIExample.testFail Tests/Fixture.bundle
 expect_failure obj/xctest Tests/Fixture.bundle
 expect_failure obj/xctest -XCTest All Tests/Fixture.bundle
 expect_failure obj/xctest -XCTest CLIExample.testPass,Missing Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Fixture Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Fixture/CLIExample/testFail Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Fixture/Missing Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Other/CLIExample/testPass Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Fixture/CLIExample/testPass/extra Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing:Fixture//testPass Tests/Fixture.bundle
+expect_failure obj/xctest -only-testing: Tests/Fixture.bundle
+expect_failure obj/xctest -skip-testing:Fixture Tests/Fixture.bundle
+expect_failure obj/xctest -skip-testing:Fixture/CLIExample Tests/Fixture.bundle
 echo "All regression and CLI checks passed."

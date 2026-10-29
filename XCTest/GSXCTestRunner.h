@@ -33,6 +33,7 @@
 
 - (BOOL)runAll;
 - (BOOL)runTestsNamed:(NSArray *)testNames; // nil for all tests
+- (BOOL)runTestsNamed:(NSArray *)testNames skipping:(NSArray *)skippedNames;
 
 - (void)waitForCompletion;
 

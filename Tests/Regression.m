@@ -278,6 +278,12 @@ int main(void)
         CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"ClassFailure.testPass"]]);
         CHECK(classTeardowns == 3);
         CHECK([runner runTestsNamed:[NSArray arrayWithObject:@"Lifecycle.testPass"]]);
+        bodies = 0;
+        CHECK([runner runTestsNamed:[NSArray arrayWithObject:@"Inherited.testPass"] skipping:[NSArray arrayWithObject:@"Missing"]]);
+        CHECK(bodies == 10);
+        CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"Inherited.testPass"] skipping:[NSArray arrayWithObject:@"Inherited.testPass"]]);
+        CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"Inherited.testPass"] skipping:[NSArray arrayWithObject:@"Inherited"]]);
+        CHECK(bodies == 10);
         [runner waitForCompletion];
         [runner release];
         NSLog(@"Regression: %d checks, %d errors", checks, errors);

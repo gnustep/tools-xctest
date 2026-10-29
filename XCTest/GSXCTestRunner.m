@@ -67,7 +67,7 @@ static NSArray *TestClassNames(void)
 }
 - (BOOL)runAll { return [self runTestsNamed:nil]; }
 
-- (BOOL)runTestsNamed:(NSArray *)testNames
+- (BOOL)runTestsNamed:(NSArray *)testNames skipping:(NSArray *)skippedNames
 {
     [runLock lock];
     NSUInteger successes = 0, failures = 0, suiteFailures = 0;
@@ -87,6 +87,9 @@ static NSArray *TestClassNames(void)
                             enabled = YES;
                             [matched addObject:filter];
                         }
+                    }
+                    for (NSString *skip in skippedNames) {
+                        if ([skip isEqual:className] || [skip isEqual:fullName]) enabled = NO;
                     }
                     if (enabled) [selected addObject:invocation];
                 }
@@ -133,6 +136,7 @@ static NSArray *TestClassNames(void)
     if (successes + failures == 0) NSLog(@"XCTest: No tests executed.");
     return successes + failures > 0 && failures == 0 && suiteFailures == 0;
 }
+- (BOOL)runTestsNamed:(NSArray *)testNames { return [self runTestsNamed:testNames skipping:nil]; }
 - (void)waitForCompletion
 {
     [runLock lock];

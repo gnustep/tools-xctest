@@ -15,7 +15,17 @@ xctest -XCTest ExampleTests path/to/Tests.bundle
 xctest -XCTest ExampleTests.testAddition,OtherTests.testParsing path/to/Tests.bundle
 ```
 
-`-XCTest All` runs all discovered tests. Exit status is zero only when at least
+Apple's `-only-testing:` and `-skip-testing:` options select and exclude tests
+by `Target[/Class[/method]]`, where the target is the bundle's name without its
+extension. They can be repeated and combined with `-XCTest`:
+
+```sh
+xctest path/to/Tests.bundle -only-testing:Tests/ExampleTests/testAddition
+xctest path/to/Tests.bundle -only-testing:Tests/ExampleTests -skip-testing:Tests/ExampleTests/testSlow
+```
+
+`-only-testing:` for another target fails; `-skip-testing:` for another target
+skips nothing. `-XCTest All` runs all discovered tests. Exit status is zero only when at least
 one test executes and every selected test succeeds. Invalid bundles, unmatched
 filters, empty runs, assertion failures, and uncaught exceptions return nonzero.
 
