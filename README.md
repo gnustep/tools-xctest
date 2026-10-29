@@ -12,10 +12,11 @@ search path and `XCTest/obj` to the library search path. On Linux, put
 ```sh
 xctest path/to/Tests.bundle
 xctest -XCTest ExampleTests path/to/Tests.bundle
-xctest -XCTest ExampleTests.testAddition,OtherTests.testParsing path/to/Tests.bundle
+xctest -XCTest ExampleTests/testAddition,OtherTests/testParsing path/to/Tests.bundle
 ```
 
-`-XCTest All` runs all discovered tests. Exit status is zero only when at least
+`-XCTest All` runs all discovered tests. A test is selected as `Class/method`,
+as with Apple's xctest; `Class.method` works too. Exit status is zero only when at least
 one test executes and every selected test succeeds. Invalid bundles, unmatched
 filters, empty runs, assertion failures, and uncaught exceptions return nonzero.
 

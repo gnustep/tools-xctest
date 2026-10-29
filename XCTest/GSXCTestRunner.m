@@ -79,11 +79,13 @@ static NSArray *TestClassNames(void)
                 Class cls = NSClassFromString(className);
                 NSMutableArray *selected = [NSMutableArray array];
                 for (NSInvocation *invocation in [cls testInvocations]) {
-                    NSString *fullName = [NSString stringWithFormat:@"%@.%@", className,
-                        NSStringFromSelector([invocation selector])];
+                    NSString *methodName = NSStringFromSelector([invocation selector]);
+                    NSString *fullName = [NSString stringWithFormat:@"%@.%@", className, methodName];
+                    // Apple's xctest and Xcode select a test as Class/method.
+                    NSString *appleName = [NSString stringWithFormat:@"%@/%@", className, methodName];
                     BOOL enabled = testNames == nil;
                     for (NSString *filter in testNames) {
-                        if ([filter isEqual:className] || [filter isEqual:fullName]) {
+                        if ([filter isEqual:className] || [filter isEqual:fullName] || [filter isEqual:appleName]) {
                             enabled = YES;
                             [matched addObject:filter];
                         }

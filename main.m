@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
         for (int i = 1; i < argc; i++) {
             NSString *arg = [NSString stringWithUTF8String:argv[i]];
             if ([arg isEqual:@"--help"] || [arg isEqual:@"-h"]) {
-                puts("Usage: xctest [-XCTest Class[.method][,...]] test-bundle-path");
+                puts("Usage: xctest [-XCTest Class[/method][,...]] test-bundle-path");
                 return 0;
             }
             if ([arg isEqual:@"-XCTest"]) {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
             }
         }
         if (invalid || !path) {
-            fprintf(stderr, "Usage: xctest [-XCTest Class[.method][,...]] test-bundle-path\n");
+            fprintf(stderr, "Usage: xctest [-XCTest Class[/method][,...]] test-bundle-path\n");
             return 1;
         }
         @try {

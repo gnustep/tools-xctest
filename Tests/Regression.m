@@ -278,6 +278,10 @@ int main(void)
         CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"ClassFailure.testPass"]]);
         CHECK(classTeardowns == 3);
         CHECK([runner runTestsNamed:[NSArray arrayWithObject:@"Lifecycle.testPass"]]);
+        /* Apple's xctest and Xcode write a selected test as Class/method. */
+        CHECK([runner runTestsNamed:[NSArray arrayWithObject:@"Lifecycle/testPass"]]);
+        CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"Lifecycle/testStop"]]);
+        CHECK(![runner runTestsNamed:[NSArray arrayWithObject:@"Lifecycle/testMissing"]]);
         [runner waitForCompletion];
         [runner release];
         NSLog(@"Regression: %d checks, %d errors", checks, errors);
